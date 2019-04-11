@@ -1,0 +1,14 @@
+{
+  "id":1,
+  "coord": {
+    "lat": 45.00,
+    "long": 2.23
+  },
+  "battery": 1,
+  "km": {
+    "total": 20,
+    "afterLastCharge": 0
+  },
+  "inUse":false,
+  "inCharge": false
+}
