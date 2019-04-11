@@ -15,7 +15,7 @@ class TestProduceScooter extends FunSuite {
   val producer = new Producer()
   val msgFunc = (cr: ConsumerRecord[String, String]) => println(cr.value())
 
-
+  System.out.println(recordObj.value("coord"))
 
 
   test("can produce and consume records from Kafka") {
