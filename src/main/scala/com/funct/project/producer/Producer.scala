@@ -24,7 +24,7 @@ class Producer {
   val producer = new KafkaProducer[String, String](KafkaProducerConfigs().properties)
 
   def produce(topic: String, message: String): Unit = {
-    producer.send(new ProducerRecord[String, String](topic, message))
+    for (i <- 1 to 50) producer.send(new ProducerRecord[String, String](topic, message))
     producer.close(100L, TimeUnit.MILLISECONDS)
   }
 }

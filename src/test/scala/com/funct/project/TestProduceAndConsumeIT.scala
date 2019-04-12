@@ -1,8 +1,8 @@
 package com.funct.project
 
-
 import com.funct.project.consumer.Consumer
 import com.funct.project.producer.Producer
+//import com.funct.project.spark.SparkFunct.SparkFunct
 import com.funct.project.utils.JsonParser
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.scalatest.FunSuite
@@ -16,8 +16,7 @@ class TestProduceAndConsumeIT extends FunSuite {
   val producer = new Producer()
   val msgFunc = (cr: ConsumerRecord[String, String]) => println(cr.value())
   val consumer = new Consumer(List(topic), math.random.toString, msgFunc = msgFunc)
-
-
+  //val spark = new SparkFunct()
 
   test("can produce and consume records from Kafka") {
     producer.produce(topic, records)
