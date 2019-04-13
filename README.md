@@ -45,6 +45,7 @@ Every 10 secondes, the analysis will be printed on the screen.
 we didn't build any house today, but we apply what we have learn in classe into this project ! <br/>
 When the producer is created, it will send the message to the consumer thought KAFKA. <br/>
 The consumer will be able to receive the message because it use the KAFKA Topic that the producer used. <br/>
+Here the consumer is obviously the company that lend their scooter wheel to clients. (Sometimes they need to get some informations about their devices).
 <br/>
 We decided to send and store the data as Json file because it's simplier to use
 <br/>
