@@ -36,6 +36,20 @@ bin/kafka-server-start.sh config/server.properties
 If you want to call all at the same time, you can go in the "RUN/DEBUG Configurations" near the run button, and 
 click on "+", choose "compound" and select multiple times "TestProducerScooter"<br/>
 
+* 3/ Create your consummers and spark <br/>
+To run the spark consumer, you just have to launch the SparkFunct app in src/main/scala/spark/SparkFunct
+Every 10 secondes, the analysis will be printed on the screen.
+
+
+## Our architecture
+we didn't build any house today, but we apply what we have learn in classe into this project ! <br/>
+When the producer is created, it will send the message to the consumer thought KAFKA. <br/>
+The consumer will be able to receive the message because it use the KAFKA Topic that the producer used. <br/>
+<br/>
+We decided to send and store the data as Json file because it's simplier to use
+<br/>
+About the analysis, we decided to use the dataframe functionalities because it integreated a lot of functionalities.
+<br/>
 
 
 
