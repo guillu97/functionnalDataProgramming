@@ -16,7 +16,7 @@ class Producer {
     properties.put("key.serializer", classOf[StringSerializer])
     properties.put("value.serializer", classOf[StringSerializer])
 //    properties.put("serializer.class", classOf[StringDeserializer])
-//    properties.put("batch.size", 163recordStr84)
+//    properties.put("batch.size", 16384)
 //    properties.put("linger.ms", 1)
 //    properties.put("buffer.memory", 33554432)
   }

@@ -6,9 +6,7 @@ import java.util.Properties
 import org.apache.kafka.clients.consumer.KafkaConsumer
 import org.apache.kafka.common.serialization.StringDeserializer
 
-/**
-  * Created by bencassedy on 8/8/16.
-  */
+
 object Properties {
   val props = new Properties()
   props.put("bootstrap.servers", "localhost:9092")

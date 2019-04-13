@@ -9,6 +9,9 @@
     "total": 0,
     "afterLastCharge": 0
   },
+  "timeInUse": 50,
+  "lastDayUsed": "02/03/2019",
   "inUse":false,
-  "inCharge": false
+  "inCharge": false,
+  "speed": 20
 }
