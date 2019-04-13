@@ -31,12 +31,13 @@ bin/kafka-server-start.sh config/server.properties
 ```
 
 * 3/ Create your producers <br/>
-
+<br/>
 *run multiple times "TestProducerScooter"*<br/>
 If you want to call all at the same time, you can go in the "RUN/DEBUG Configurations" near the run button, and 
 click on "+", choose "compound" and select multiple times "TestProducerScooter"<br/>
 
 * 4/ Create your consummers and spark <br/>
+<br/>
 To run the spark consumer, you just have to launch the SparkFunct app in src/main/scala/spark/SparkFunct
 Every 10 secondes, the analysis will be printed on the screen.
 
