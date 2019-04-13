@@ -43,11 +43,12 @@ If you want to call all at the same time, you can go in the "RUN/DEBUG Configura
 and click on "+", <br/>
 choose "compound" and <br/>
 select multiple times "TestProducerScooter"<br/>
+Every 2 second, the producer will send data though kafka<br/>
 <br/>
 * 5/ Create your consummers and spark <br/>
 <br/>
 To run the spark consumer, you just have to launch the SparkFunct app in src/main/scala/spark/SparkFunct
-Every 10 secondes, the analysis will be printed on the screen.
+Every 20 secondes, the analysis will be printed on the screen.
 <br/>
 
 ## Our architecture
