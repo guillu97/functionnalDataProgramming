@@ -30,7 +30,13 @@ bin/zookeeper-server-start.sh config/zookeeper.properties
 bin/kafka-server-start.sh config/server.properties
 ```
 
-* 3/ Create your producers <br/>
+* 3/ Create our topic :
+
+```
+bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic test-records
+```
+
+* 4/ Create your producers <br/>
 <br/>
 *run multiple times "TestProducerScooter"*<br/>
 If you want to call all at the same time, you can go in the "RUN/DEBUG Configurations" near the run button, <br/>
@@ -38,7 +44,7 @@ and click on "+", <br/>
 choose "compound" and <br/>
 select multiple times "TestProducerScooter"<br/>
 <br/>
-* 4/ Create your consummers and spark <br/>
+* 5/ Create your consummers and spark <br/>
 <br/>
 To run the spark consumer, you just have to launch the SparkFunct app in src/main/scala/spark/SparkFunct
 Every 10 secondes, the analysis will be printed on the screen.
