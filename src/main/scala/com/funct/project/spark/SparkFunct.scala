@@ -1,6 +1,7 @@
 package com.funct.project.spark
 
 import org.apache.kafka.common.serialization.StringDeserializer
+import org.apache.log4j.{Level, Logger}
 import org.apache.spark.streaming.kafka010._
 import org.apache.spark.streaming.kafka010.LocationStrategies.PreferConsistent
 import org.apache.spark.streaming.kafka010.ConsumerStrategies.Subscribe
@@ -15,6 +16,14 @@ object SparkFunct extends App {
   /*case class SparkFunct(){
     println("testTest")
   }*/
+  Logger.getLogger("org").
+
+    setLevel(Level.ERROR)
+
+  Logger.getLogger("akka").
+
+    setLevel(Level.ERROR)
+
 
   var totalAvgTimeUse = 0
 
@@ -55,6 +64,7 @@ object SparkFunct extends App {
     val rdd = rddRaw.map(_.value.toString)
     val df = spark.read.json(rdd)
     if(!df.isEmpty) {
+      df.show()
 
       val avgTimeUsed = df.select(avg("timeInUse"))
       println("\n"+"Nb = " + avgTimeUsed.show() + "\n")
@@ -69,9 +79,10 @@ object SparkFunct extends App {
       println("\n" + "Number of device with low battery : " + lowBattery + "\n")
 
       val avgKmLastCharge =
-        df.select(avg("km"))
-            .select()
+        df.select(avg("km.afterLastCharge"))
       println("\n"+"km last charge = " + avgKmLastCharge.show() + "\n")
+
+      df.collect.foreach(println)
 
       val avgSpeedInUse =
         df.filter("inUse == 'true'").select(avg("speed"))
@@ -85,13 +96,15 @@ object SparkFunct extends App {
 
       df.select("currentDayTime").show()
 
-      /*val positionLat = 2
-      val positionLong = 50
-      val inArea = df.filter("(coord.lat > positionLat- 500 AND coord.lat < positionLat + 500) AND (coord.long > positionLong- 500 AND coord.long < positionLong + 500)")
+      val positionLat = 48.8584
+      val positionLong = 2.33091
+      val size = 0.03
+      val str = "(coord.lat > "+ (positionLat - size) +" AND coord.lat < "+ (positionLat + size) + ") AND (coord.long > "+ (positionLong - size) + " AND coord.long < " + (positionLong + size) + ")"
+      val inArea = df.filter(str)
           .select("id")
           .distinct()
           .count()
-      println("\n" + "Number of device with in area : " + inArea + "\n")*/
+      println("\n" + "Number of device with in area : " + inArea + "\n")
 
     }
   })
