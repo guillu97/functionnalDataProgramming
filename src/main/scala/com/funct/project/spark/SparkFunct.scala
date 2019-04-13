@@ -26,12 +26,12 @@ object SparkFunct extends App {
 
   def avgTimeUse(line : String) = {
     val linemap = jsonStrToMap(line)
-    totalAvgTimeUse = totalAvgTimeUse + linemap("timeInUse").toString.toInt
+    totalAvgTimeUse = totalAvgTimeUse + linemap("disc").toString.toInt
   }
 
   val conf = new SparkConf().setAppName("DirectStream").setMaster("local[*]")
 
-  val ssc = new StreamingContext(conf, Seconds(5))
+  val ssc = new StreamingContext(conf, Seconds(20))
 
   val kafkaParams = Map[String, Object](
     "bootstrap.servers" -> "localhost:9092",
@@ -61,14 +61,16 @@ object SparkFunct extends App {
 
       val lowBattery =
           df
-          .filter("battery < 20")
           .select("id")
+            .filter("battery < 20")
           .distinct()
           .count()
+
       println("\n" + "Number of device with low battery : " + lowBattery + "\n")
 
       val avgKmLastCharge =
-        df.select(avg("km.afterLastCharge"))
+        df.select(avg("km"))
+            .select()
       println("\n"+"km last charge = " + avgKmLastCharge.show() + "\n")
 
       val avgSpeedInUse =
@@ -76,8 +78,12 @@ object SparkFunct extends App {
       println("\n"+"avg speed scooter in use = " + avgSpeedInUse.show() + "\n")
 
       val maxSpeedAll =
-        df.select(max("speed"))
+        df.groupBy("id")
+          .agg(max("speed"))
       println("\n max speed = " + maxSpeedAll.show())
+
+
+      df.select("currentDayTime").show()
 
       /*val positionLat = 2
       val positionLong = 50

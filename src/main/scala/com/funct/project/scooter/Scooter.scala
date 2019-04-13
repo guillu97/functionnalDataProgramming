@@ -1,5 +1,7 @@
 package com.funct.project.scooter
 
+import java.time.LocalDateTime
+
 import play.api.libs.json.{JsObject, Json}
 
 
@@ -16,14 +18,11 @@ import play.api.libs.json.{JsObject, Json}
   "afterLastCharge": 0
 },
 "timeInUse": 500,
-"lastDayUsed": {
-                  day:03,
-                  month:04,
-                  year:2019
-                },
+"lastDayUsed": "2018-01-22T01:21:03.048"
 "inUse":false,
 "inCharge": false,
 "speed": 20
+"currentDayTime" : "2018-01-22T01:21:03.048"
 }
  */
 class Scooter () {
@@ -35,7 +34,8 @@ class Scooter () {
     var inUse: Boolean = false
     var inCharge: Boolean = false
     var speed: Int = 0
-
+    var currentDayTime: String = LocalDateTime.now().toString()
+    var lastDayUsed : String = "Not used yet"
 
     def ScooterMove(): Unit ={
 
@@ -48,17 +48,21 @@ class Scooter () {
             if(speedUpDown)
                 speed = rand.nextInt(30) + 15
         }
-        else if(this.speed > 15 && this.speed < 30) {
+        else if(this.speed >= 15 && this.speed < 30) {
             if (speedUpDown)
-                speed = rand.nextInt(50) + 30
+                speed = rand.nextInt(50-30) + 30 // min 30 - max 49
             else{
-                speed = rand.nextInt(30) + 15
+                speed = speed - rand.nextInt(speed)+5 // min 6 - max speed
             }
         }
-        else if(this.speed > 30){
+        else if(this.speed >= 30){
             if (!speedUpDown)
-                speed = rand.nextInt(30) + 15
+                speed = rand.nextInt(30-15)+15 // min 15 - max 29
+            else {
+                speed = speed + rand.nextInt(50-speed) // min actuel speed - max 49
+            }
         }
+
         this.speed = speed
 
         var km = 0.000
@@ -68,11 +72,11 @@ class Scooter () {
             plus = 0.001
             km = 0.008
         }
-        else if( this.speed > 15 && this.speed < 30 ){
+        else if( this.speed >= 15 && this.speed < 30 ){
             plus = 0.002
             km = 0.016
         }
-        else if( this.speed > 30 && this.speed < 50 ){
+        else if( this.speed >= 30 && this.speed <= 50 ){
             plus = 0.003
             km = 0.032
         }
@@ -98,12 +102,15 @@ class Scooter () {
         else if(this.battery == 0) {
             this.battery = 100
             this.inCharge = true
+            this.speed = 0
             this.inUse = false
             this.km.afterLastCharge = 0
+            this.lastDayUsed = LocalDateTime.now().toString()
         }
 
 
         if(this.inUse){
+
             this.timeInUse = this.timeInUse + 2
         }
         else {
@@ -122,8 +129,8 @@ class Scooter () {
         """ "coord" : { "lat":""" + this.coord.lat + """, "long": """ + this.coord.long +
       """},""" + """ "battery":""" + this.battery + """,  "km": { "total": """  +
         this.km.total + """, "afterLastCharge": """ + this.km.afterLastCharge + """},"""+
-      """ "timeInUse": """ + this.timeInUse + """, """ + """ "inUse": """ + this.inUse + """, "inCharge": """ + this.inCharge +
-      """, "speed": """ + this.speed + """ } """
+      """ "timeInUse": """ + this.timeInUse + """, "lastDayUsed":""""+this.lastDayUsed+"""","inUse": """ + this.inUse + """, "inCharge": """ + this.inCharge +
+      """, "speed": """ + this.speed + """, "currentDayTime":""""+this.currentDayTime+""""} """
       return rawJson
     }
 
