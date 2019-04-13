@@ -2,7 +2,7 @@ name := "functionnalDataProgramming"
 
 version := "1.0"
 
-scalaVersion := "2.11.8"
+scalaVersion := "2.11.12"
 
 libraryDependencies += "org.apache.kafka" % "kafka-clients" % "0.10.0.1"
 libraryDependencies += "com.typesafe.play" % "play-json_2.11" % "2.5.6"

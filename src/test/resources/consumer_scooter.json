@@ -1,12 +1,12 @@
 {
   "id":1,
   "coord": {
-    "lat": 45.00,
-    "long": 2.23
+    "lat": 48.86,
+    "long": 2.34
   },
-  "battery": 1,
+  "battery": 0,
   "km": {
-    "total": 20,
+    "total": 0,
     "afterLastCharge": 0
   },
   "inUse":false,
